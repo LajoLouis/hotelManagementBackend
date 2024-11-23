@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const validatePassword = require("../helpers/validatePassword");
 const bcrypt = require("bcryptjs");
+const BookingHistory = require("../models/historyModel")
 
 exports.register = async (req, res) => {
   const {
@@ -15,17 +16,6 @@ exports.register = async (req, res) => {
   } = req.body;
   const image = req.file ? req.file.path : null;
 
-  // const firstName = req.body.firstName
-  // const lastName = req.body.lastName
-  // const phone = req.body.phone
-  // const email = req.body.email
-  // const password = req.body.password
-  // const confirmPassword = req.body.confirmPassword
-  // const role = req.body.role
-  // const image = req.file.path
-  // const bookingHistory = req.body.bookingHistory
-
-  // check if password match
   if (password !== confirmPassword) {
     return res.json("do not match");
   }

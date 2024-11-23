@@ -10,13 +10,8 @@ exports.makeBooking = async (req, res) => {
             return res.status(400).json("Input checkIn and CheckOut date");
         }
 
-        const currentUser = await User.findById(user)
-
         const booking = new Bookings({ room, user, checkIn, checkOut, numberOfNights, totalCost, occupants, bookingDate, paymentStatus });
         const newBooking = await booking.save();
-        currentUser.bookingHistory.unshift(newBooking)
-        await currentUser.save()
-        // console.log(currentUser);
         
         res.status(201).json(newBooking);
 
@@ -40,7 +35,6 @@ exports.getUserBookings = async (req, res) => {
             return res.status(404).json("No booking yet");
         }
 
-        // console.log(bookings);
         return res.status(200).json(bookings);
     } catch (error) {
         res.status(500).json(error);

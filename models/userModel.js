@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     password: {type:String, required:true},
     role: {type:String, enum:["admin", "client"], default:"client"},
     image: {type:String},
-    bookingHistory : [{type: mongoose.Schema.Types.ObjectId, ref: "Bookings"}]
+    bookingHistory : [{type: mongoose.Schema.Types.ObjectId, ref: "BookingHistory"}]
 })
 
 userSchema.methods.generateAuthToken = function(){
