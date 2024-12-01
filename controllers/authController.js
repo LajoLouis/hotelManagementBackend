@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
     // check if user exists
     let user = await User.findOne({ email });
     if (user) {
-      res.json("exists");
+      return res.json("exists");
     }
 
     user = new User({
