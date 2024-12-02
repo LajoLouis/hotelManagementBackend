@@ -15,5 +15,6 @@ const upload = multer({storage:storage})
 const router = express.Router()
 
 router.post("/bookvialajo/createRoom", upload.single("roomImage"), roomController.createRoom)
+router.post("/bookvialajo/updateRoom", roomController.updateRoom)
 
 module.exports = router
