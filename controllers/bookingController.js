@@ -1,5 +1,6 @@
 const Bookings = require("../models/bookingsModel");
 const User = require('../models/userModel')
+const Room = require("../models/roomsModel")
 
 exports.makeBooking = async (req, res) => {
     const { room, checkIn, checkOut, numberOfNights, totalCost, occupants, bookingDate, paymentStatus } = req.body;
@@ -13,6 +14,9 @@ exports.makeBooking = async (req, res) => {
         const booking = new Bookings({ room, user, checkIn, checkOut, numberOfNights, totalCost, occupants, bookingDate, paymentStatus });
         const newBooking = await booking.save();
         
+        const bookedRoom = await Room.findById(room)
+        bookedRoom.available = false
+        await bookedRoom.save()
         res.status(201).json(newBooking);
 
         
