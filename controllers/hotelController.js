@@ -56,7 +56,7 @@ exports.addHotelRoom = async(req, res)=>{
 exports.getHotels = async (req, res) => {
     try {
       const allHotels = await Hotel.find()
-      .populate("rooms", "roomName price capacity roomImage description")
+      .populate("rooms", "roomName price capacity roomImage description available")
       .populate("amenities")
       res.json(allHotels);
     } catch (error) {
