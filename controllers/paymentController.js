@@ -2,6 +2,7 @@ const {v4 : uuidv4} = require("uuid")
 const Bookings = require("../models/bookingsModel")
 const BookingHistory = require("../models/historyModel")
 const User = require("../models/userModel")
+const Room = require("../models/roomsModel")
 
 
 const FLW_SECRET_KEY = process.env.FLW_SECRET_KEY;
@@ -99,6 +100,9 @@ exports.verifyPayment = async (req,res) => {
         await history.save()
         const currentUser = await User.findById(req.user.id)
         currentUser.bookingHistory.unshift(history._id)
+        const bookedRoom = await Room.findById(booking?.room)
+        bookedRoom.available = false
+        await bookedRoom.save()
         await currentUser.save()
         await Bookings.findByIdAndDelete(bookingId)
 
