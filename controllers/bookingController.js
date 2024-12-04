@@ -10,6 +10,9 @@ exports.makeBooking = async (req, res) => {
         if (!checkIn || !checkOut) {
             return res.status(400).json("Input checkIn and CheckOut date");
         }
+        if (!room) {
+            return res.json("please select a room")
+        }
 
         const booking = new Bookings({ room, user, checkIn, checkOut, numberOfNights, totalCost, occupants, bookingDate, paymentStatus });
         const newBooking = await booking.save();
